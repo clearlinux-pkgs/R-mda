@@ -4,17 +4,19 @@
 #
 Name     : R-mda
 Version  : 0.4.10
-Release  : 15
+Release  : 16
 URL      : https://cran.r-project.org/src/contrib/mda_0.4-10.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/mda_0.4-10.tar.gz
 Summary  : Mixture and Flexible Discriminant Analysis
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: R-mda-lib
-BuildRequires : clr-R-helpers
+Requires: R-mda-lib = %{version}-%{release}
+BuildRequires : buildreq-R
 
 %description
-adaptive regression splines (MARS), BRUTO, ...
+This is a first shot at porting the Hastie & Tibshirani mda package to
+R.  mda and fda with MARS seem to work fine, but bruto is still broken
+and segfaults.  Hopefully, this can be fixed soon.
 
 %package lib
 Summary: lib components for the R-mda package.
@@ -32,11 +34,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523317885
+export SOURCE_DATE_EPOCH=1552774470
 
 %install
+export SOURCE_DATE_EPOCH=1552774470
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1523317885
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -71,8 +73,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library mda|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  mda || :
 
 
 %files
@@ -99,7 +100,6 @@ cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 /usr/lib64/R/library/mda/help/paths.rds
 /usr/lib64/R/library/mda/html/00Index.html
 /usr/lib64/R/library/mda/html/R.css
-/usr/lib64/R/library/mda/libs/symbols.rds
 
 %files lib
 %defattr(-,root,root,-)
