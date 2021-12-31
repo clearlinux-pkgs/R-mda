@@ -4,7 +4,7 @@
 #
 Name     : R-mda
 Version  : 0.5.2
-Release  : 40
+Release  : 41
 URL      : https://cran.r-project.org/src/contrib/mda_0.5-2.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/mda_0.5-2.tar.gz
 Summary  : Mixture and Flexible Discriminant Analysis
